@@ -1,0 +1,48 @@
+/*colors -
+  Main Green: #61b34f
+  Light Green: #82c276
+*/
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 60vw;
+  width: 48vw;
+  border: 1px solid black;
+  background-color: #61b34f;
+}
+
+.content-row {
+  height: 12vw;
+  display: flex;
+}
+
+.text-content {
+  border: .05em solid 	#e6e6e6;
+  flex-grow: 3;
+}
+
+.squares {
+  border: .02em solid 	#e6e6e6;
+  width: 12vw;
+  font-family: arial,sans-serif,serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5vw;
+}
