@@ -1,31 +1,54 @@
-const zeroBtn = document.querySelector("#zero");
-const oneBtn = document.querySelector("#one");
-const twoBtn = document.querySelector("#two");
-const threeBtn = document.querySelector("#three");
-const fourBtn = document.querySelector("#four");
-const fiveBtn = document.querySelector("#five");
-const sixBtn = document.querySelector("#six");
-const sevenBtn = document.querySelector("#seven");
-const eightBtn = document.querySelector("#eight");
-const nineBtn = document.querySelector("#nine");
-const divideBtn = document.querySelector("#divide");
-const multiplyBtn = document.querySelector("#multiply");
-const subtractBtn = document.querySelector("#subtract");
-const periodBtn = document.querySelector("#period");
-const equalsBtn = document.querySelector("#equals");
-const plusBtn = document.querySelector("#plus");
-const clearBtn = document.querySelector("#clear");
 
-let btnList = document.querySelectorAll(".squares");
+let btnList = document.querySelectorAll('.squares');
+let operators = ['+', '-', 'x', '÷'];
+let decimalAdded = false;
 
-for (let i = 0; i < btnList.length; i++){
-  let btn = btnList[i];
-  let contentDiv = document.getElementById('text-content');
+// Add onclick event to all the btnList and perform operations
+for(let i = 0; i < btnList.length; i++) {
+	btnList[i].onclick = function(event) {
+		// Get the input and button values
+		let input = document.querySelector('.text-content');
+		let inputVal = input.innerHTML;
+		let btnVal = this.innerHTML;
+    let equation;
+    let lastChar;
 
-  // console.log(btn);
-  btn.addEventListener("click", function(event){
-    console.log("You clicked the button labeled: " + btn.innerHTML);
-    contentDiv.innerHTML += btn.innerHTML
-  });
-
+		if(btnVal == 'C') {
+			input.innerHTML = '';
+			decimalAdded = false;
+		}
+    else if(btnVal == '=') {
+			equation = inputVal;
+			lastChar = equation[equation.length - 1];
+			equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+  			if(operators.indexOf(lastChar) > -1 || lastChar == '.'){
+  				equation = equation.replace(/.$/, '');
+          }
+  			if(equation){
+  				input.innerHTML = eval(equation);
+          }
+			decimalAdded = false;
+		}
+		else if(operators.indexOf(btnVal) > -1) {
+			lastChar = inputVal[inputVal.length - 1];
+			if(inputVal != '' && operators.indexOf(lastChar) == -1){
+				input.innerHTML += btnVal;
+      }else if(inputVal == '' && btnVal == '-'){
+				input.innerHTML += btnVal;
+      }
+			if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+				input.innerHTML = inputVal.replace(/.$/, btnVal);
+			}
+			decimalAdded =false;
+		}
+    else if(btnVal == '.') {
+			if(!decimalAdded) {
+				input.innerHTML += btnVal;
+				decimalAdded = true;
+			}
+		}
+		else {
+			input.innerHTML += btnVal;
+		}
+	}
 }
